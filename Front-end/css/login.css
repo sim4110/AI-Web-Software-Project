@@ -1,0 +1,41 @@
+.row_login{
+    font-family: 'NanumSquareNeo';
+    margin-top: 100px;
+}
+
+.login_title{
+    margin: 45px auto;
+}
+
+.login_title h2{
+    text-align: center;
+}
+
+.login_input{
+    margin: 20px auto;
+    width: 400px;
+}
+
+.login_input .login_list{
+    margin: 10px auto;
+}
+
+.login_input input[type="text"],
+.login_input input[type="password"]{
+    width: 400px;
+    height: 35.2px;
+}
+
+.login_submit_btn{
+    text-align: center;
+    padding: 25px 20px;
+}
+
+.login_submit_btn button{
+    font-size: 16px;
+    width: 180px;
+    height: 50px;
+    border-style: none;
+    cursor: pointer;
+    font-family: 'NanumSquareNeoBold';
+}
