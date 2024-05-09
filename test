@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    .nav {
+      height: 40px;
+      border-bottom: 2px solid black;
+    }
+
+    .nav-item {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .main {
+      margin-top: 20px;
+      width: 250px;
+      height: 250px;
+      border: 1px solid black;
+    }
+
+    .main-1 {
+      margin-top: 100px;
+      margin-left: 25px;
+
+    }
+
+    .main-2 {
+      margin-top: -140px;
+      margin-left: 270px;
+      display: flex;
+    }
+
+    .main-2-1 {
+      margin: 10px;
+    }
+
+    .main-3 {
+      margin-top: -7px;
+      margin-left: 270px;
+      display: flex;
+    }
+
+    .main-3-1 {
+      margin: 10px;
+    }
+
+    .main-4 {
+      margin-top: 10px;
+      margin-left: 280px;
+      display: flex;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav">
+    <div class="nav-item">기본정보</div>
+  </div>
+
+  <div class="main">
+
+    <div class="main-1">
+      <input id="image-input" type="file" />
+    </div>
+
+    <div class="main-2">
+      <div class="main-2-1">
+        이름
+        <input type="text" name="name" id="name" style="text-align:center;">
+      </div>
+      <div class="main-2-1">
+        종
+        <input type="text" name="species" id="species" style="text-align:center;">
+      </div>
+      <div class="main-2-1">
+        급여(시간당)
+        <input type="text" name="pay" id="pay" style="text-align:center;">
+      </div>
+    </div>
+
+    <div class="main-3">
+      <div class="main-3-1">
+        근무시작
+        <input type="datetime-local" name="starttime">
+      </div>
+      <div class="main-3-1">
+        근무종료
+        <input type="datetime-local" name="endtime">
+      </div>
+      <div class="main-3-1">
+        <form>
+          근무타입
+          <select name="Type">
+            <option value="none">=== 선택 ===</option>
+            <option value="walk">산책</option>
+            <option value="english">미용</option>
+            <option value="chinese">목욕</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <div class="main-4">
+      <div class="bl_stack form">
+        <div class="el_ttl">주소</div>
+        <div class="bl_stack bl_stack--row">
+          <input type="text" class="el_input hp_txt-center" placeholder="" disabled id="zonecode" />
+          <button class="el_btn el_btn--outline hp_shrink-0" id="search-btn">
+            우편번호 찾기
+          </button>
+        </div>
+        <input type="text" class="el_input" placeholder="" disabled id="roadAddress" />
+        <input type="text" class="el_input" placeholder="상세주소를 입력해주세요." id="roadAddressDetail" />
+      </div>
+    </div>
+  </div>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    const elZonecode = document.querySelector("#zonecode");
+    const elRoadAddress = document.querySelector("#roadAddress");
+    const elRoadAddressDetail = document.querySelector("#roadAddressDetail");
+    const elResults = document.querySelectorAll(".el_result");
+    
+    const onClickSearch = () => {
+      console.log(1);
+      new daum.Postcode({
+        oncomplete: function (data) {
+          console.log(data);
+          elZonecode.setAttribute("value", data.zonecode);
+          elRoadAddress.setAttribute("value", data.roadAddress);
+        },
+      }).open();
+    };
+    const register = () => {
+      console.log(`우편번호: ${elZonecode.getAttribute("value")}`);
+      console.log(`주소: ${elRoadAddress.getAttribute("value")}`);
+      console.log(`상세주소: ${elRoadAddressDetail.getAttribute("value")}`);
+      elResults[0].innerHTML = elZonecode.getAttribute("value");
+      elResults[1].innerHTML = elRoadAddress.getAttribute("value");
+      elResults[2].innerHTML = elRoadAddressDetail.getAttribute("value");
+    };
+    
+    document.querySelector("#search-btn").addEventListener("click", () => {
+      onClickSearch();
+    });
+
+    elRoadAddressDetail.addEventListener("change", (e) => {
+      elRoadAddressDetail.setAttribute("value", e.target.value);
+    });
+  </script>
+
+
+</body>
+
+</html>
