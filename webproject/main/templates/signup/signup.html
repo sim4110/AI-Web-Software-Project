@@ -1,0 +1,92 @@
+<!-- 작성자: 이은총 -->
+<!-- 비고: 회원가입 -->
+<!-- #는 추후에 기입해야 될 부분입니다. -->
+
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>#</title>
+        <!-- <link rel="stylesheet" href="../css/nav_var.css"> -->
+        <!-- <link rel="stylesheet" href="../css/signup.css"> -->
+        
+       <!-- Django에서 css 파일 불러오기 -->
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nav_var.css' %}">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="intro">
+            <nav>
+                <div class="logo">
+                    <a href="#">로고</a>
+                </div>
+                <ul class="category">
+                    <li><a href="#">알바</a></li>
+                    <li><a href="#">미용</a></li>
+                </ul>
+                <ul class="login_signup">
+                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">회원가입</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="wrapper">
+            <!--
+            <div id="nav">
+                <ul class="nav_vertical">
+                    <li><a href="#">알바</a></li>
+                    <li><a href="#">미용</a></li>
+                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">회원가입</a></li>
+                </ul>
+            </div>
+            -->
+            <div class="row_signup" id="content">
+              <!-- 회원가입 제목 -->
+                <div class="signup_title">
+                    <h2>회원가입</h2>
+                </div>
+                <form action="" method="POST" name="SIGNUP_INFO" class="signup_deco">
+                  {% csrf_token %}
+                    <!-- 아이디 입력 -->  
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;아이디<span id="idError"></span></h4>
+                        <span class="signup_input_int"><input type="text" name="ID_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                    </div>
+                  <!-- 비밀번호 입력 -->   
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호<span id="pwError"></span></h4>
+                        <span class="signup_input_int"><input type="password" name="PW_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                    </div>
+                  <!-- 비밀번호 재확인 입력 -->
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호 재확인<span id="pw_checkError"></span></h4>
+                        <span class="signup_input_int"><input type="password" name="PW_CHECK_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                    </div>
+                  <!-- 닉네임 입력 -->
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;닉네임<span id=nicknameError></span></h4>
+                        <span class="signup_input_int"><input type="text" name="NICKNAME_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                    </div>
+                  <!-- 전화번호 입력 -->
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;전화번호<span id=telNumError></span></h4>
+                        <span class="signup_input_int"><input type="tel" name="TEL_NUM_SIGNUP" class="#" id="#" maxlength="11" required></span>
+                    </div>
+                  <!-- 이메일 입력 -->
+                    <div class="signup_input">
+                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;이메일<span id="emailError"></span></h4>
+                        <span class="signup_email_int" id="emailBox"><input type="email" name="EMAIL_SIGNUP" class="#" id="#" required></span>
+                    </div>
+                  <!-- 제출 버튼 -->
+                    <div class="signup_submit_btn">
+                        <button type="submit" name="SUBMIT_SIGNUP" class="#" id="#">가입하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
