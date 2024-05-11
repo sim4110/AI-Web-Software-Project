@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    border-collapse: collapse;
+}
+
+nav{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    font-family: 'NanumSquareNeoBold';
+    font-size: 18px;
+}
+
+.logo a{
+    color: black;
+    font-size: 30px;
+    line-height: 190px;
+    padding-left: 200px;
+    padding-right: 100px;
+    font-family: 'NanumSquareNeoHeavy';
+}
+
+.login_signup{
+    margin-left: auto;
+    margin-right: 100px;
+}
+
+.login_signup li{
+    margin-right: 100px;
+}
+
+.category li{
+    margin-right: 100px;
+}
+
+.category li,
+.login_signup li{
+    display: inline-block;
+    line-height: 190px;
+}
+
+.category li a,
+.login_signup li a{
+    color: black;
+}
