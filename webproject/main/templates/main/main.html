@@ -24,8 +24,12 @@
                     <li><a href="#">미용</a></li>
                 </ul>
                 <ul class="login_signup">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
+                    {% if user_nick != None %}
+                        <li>{{user_nick}}</li>
+                    {% else %}
+                        <li><a href="#">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
+                    {% endif %}    
                 </ul>
             </nav>
         </div>
