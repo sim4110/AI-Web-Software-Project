@@ -65,7 +65,12 @@ def user_logout(request):
     return redirect('main:login')
 
 def main(request):
-    return render(request,'main/main.html')
+    try:
+        user_nick=request.session.get('user_nickname')
+        return render(request, 'main/main.html', {'user_nick':user_nick})
+
+    except:
+        return render(request,'main/main.html')
 
 
 
