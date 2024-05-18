@@ -41,25 +41,37 @@ def user_login(request):
     elif request.method == 'POST' :
         userid=request.POST.get('ID_LOGIN')
         userpw=request.POST.get('PW_LOGIN')
+        
+        try:
+            users = UserData.objects.get(userid=userid)
+        except:
+            users = None
 
-        users = UserData.objects.get(userid=userid)
-
-        if users.password == userpw:
-            request.session['user_id'] = userid
-            request.session['user_nickname']=users.usernickname
-            return redirect('main:home')
+        if users is not None :
+            if users.password == userpw:
+                request.session['user_id'] = userid
+                request.session['user_nickname']=users.usernickname
+                # context['userSession']=request.session['user_id']
+                return redirect('main:home')
+            
+            else :
+                messages.info(request, "비밀번호를 다시 입력해주세요")
+                return redirect('main:login')
+                
 
         else :
-            messages.info(request, "ID/비밀번호를 다시 입력해 주세요.")
+            messages.info(request, "ID를 다시 입력해주세요")
             return redirect('main:login')
             
 
 def user_logout(request):
-    # logout(request)
     del request.session['user_id']
     del request.session['user_nickname']
     return redirect('main:login')
 
 def main(request):
-    return render(request,'main/main.html')
-
+    try :
+        userid=request.session.get('user_id')
+        return render(request,'main/main.html',{'user_id':userid})
+    except:
+        return render(request,'main/main.html')
