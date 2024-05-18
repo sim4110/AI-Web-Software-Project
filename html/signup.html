@@ -65,38 +65,40 @@
       <!-- 회원가입 내용 -->
         <div id="content" class="signup">
             <div class="signup__wrapper">
-                <div class="signup__title"></div>
+                <div class="signup__title">
+                    <h1>회원가입</h1>
+                </div>
                 <div class="signup__input">
                     <form action="#" method="#" name="SIGNUP_INFO" class="signup_deco">
                         <!-- 아이디 입력 -->  
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;아이디<span id="idError"></span></h4>
-                            <span class="signup_input_int"><input type="text" name="ID_SIGNUP" class="#" id="#" maxlength="20"></span>
+                            <h4 class="signup_list">아이디<span id="idError"></span></h4>
+                            <span class="signup_input_int"><input type="text" name="ID_SIGNUP" class="#" id="#" maxlength="20" required></span>
                         </div>
                         <!-- 비밀번호 입력 -->   
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호<span id="pwError"></span></h4>
-                            <span class="signup_input_int"><input type="password" name="PW_SIGNUP" class="#" id="#" maxlength="20"></span>
+                            <h4 class="signup_list">비밀번호<span id="pwError"></span></h4>
+                            <span class="signup_input_int"><input type="password" name="PW_SIGNUP" class="#" id="#" maxlength="20" required></span>
                         </div>
                         <!-- 비밀번호 재확인 입력 -->
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호 재확인<span id="pw_checkError"></span></h4>
-                            <span class="signup_input_int"><input type="password" name="PW_CHECK_SIGNUP" class="#" id="#" maxlength="20"></span>
+                            <h4 class="signup_list">비밀번호 재확인<span id="pw_checkError"></span></h4>
+                            <span class="signup_input_int"><input type="password" name="PW_CHECK_SIGNUP" class="#" id="#" maxlength="20" required></span>
                         </div>
                         <!-- 닉네임 입력 -->
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;닉네임<span id=nicknameError></span></h4>
-                            <span class="signup_input_int"><input type="text" name="NICKNAME_SIGNUP" class="#" id="#" maxlength="20"></span>
+                            <h4 class="signup_list">닉네임<span id=nicknameError></span></h4>
+                            <span class="signup_input_int"><input type="text" name="NICKNAME_SIGNUP" class="#" id="#" maxlength="20" required></span>
                         </div>
                         <!-- 전화번호 입력 -->
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;전화번호<span id=telNumError></span></h4>
+                            <h4 class="signup_list">전화번호<span id=telNumError></span></h4>
                             <span class="signup_input_int"><input type="tel" name="TEL_NUM_SIGNUP" class="#" id="#" maxlength="11"></span>
                         </div>
                         <!-- 이메일 입력 -->
                         <div class="signup_input">
-                            <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;이메일<span id="emailError"></span></h4>
-                            <span class="signup_email_int" id="emailBox"><input type="email" name="EMAIL_SIGNUP" class="#" id="#"></span>
+                            <h4 class="signup_list">이메일<span id="emailError"></span></h4>
+                            <span class="signup_email_int" id="emailBox"><input type="email" name="EMAIL_SIGNUP" class="#" id="#" required></span>
                         </div>
                         <!-- 제출 버튼 -->
                         <div class="signup__submit">
