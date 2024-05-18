@@ -23,9 +23,10 @@ def read(request, id):
     return render(request, 'board/read.html', {'board':board})
 
 def regist(request):
+    writer = request.session.get('user_nickname')
+    
     if request.method == 'POST' :
         title = request.POST.get('title')
-        writer = request.POST.get('writer')
         content = request.POST.get('content')
         startdate = request.POST.get('startdate')
         enddate = request.POST.get('enddate')
@@ -35,17 +36,17 @@ def regist(request):
         roadAddressDetail = request.POST.get('roadAddressDetail')
 
         Board(title=title, writer=writer, content=content, startdate=startdate,
-              enddate=enddate, payment=payment, zonecode=zonecode, 
-              roadAddress=roadAddress, roadAddressDetail=roadAddressDetail).save()
+            enddate=enddate, payment=payment, zonecode=zonecode, 
+            roadAddress=roadAddress, roadAddressDetail=roadAddressDetail).save()
         return redirect(reverse('board:list'))
     else:
-        return render(request, 'board/regist.html')
+        return render(request, 'board/regist.html', {'writer':writer})
 
 def edit(request, id):
     board = Board.objects.get(pk=id)
     if request.method == 'POST':
         board.title = request.POST.get('title')
-        board.writer = request.POST.get('writer')
+        board.writer = request.session.get('user_nickname')
         board.content = request.POST.get('content')
         board.startdate = request.POST.get('startdate')
         board.enddate = request.POST.get('enddate')
