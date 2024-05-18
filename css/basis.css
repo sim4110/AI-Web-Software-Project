@@ -1,0 +1,21 @@
+/*
+    작성자: 이은총
+    비고: 공통 CSS
+*/
+
+:root {
+    --text-color: #f0f4f5;
+    --background-color: rgb(30, 141, 98);
+    --accent-color: rgb(222, 226, 131);
+}
+
+body {
+    margin: 0;
+    font-family: 'NanumSquareNeoBold';
+    background-color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
