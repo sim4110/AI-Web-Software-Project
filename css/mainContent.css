@@ -1,0 +1,104 @@
+/*
+    작성자: 이은총
+    비고: 메인화면 내용 CSS
+*/
+
+.content {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+/* 글 */
+
+.content__txt {
+    margin-top: 150px;
+    margin-right: 80px;
+}
+
+.content__txt1-1 h2 {
+    font-family: 'NanumSquareNeoExtraBold';
+    margin: 10px 0;
+}
+
+.content__txt1-2 h1 { 
+    font-family: 'NanumSquareNeoHeavy';
+    font-size: 3em;
+    margin: 0;
+}
+
+.content__txt2 {
+    margin-top: 30px;
+    padding: 1px;
+    background: white;
+    border-radius: 0px 30px 30px 30px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content__txt2 h3 {
+    font-family: 'NanumSquareNeoLight';
+    font-size: 16px;
+}
+
+/* 사진 */
+
+.content__photo {
+    width: 360px;
+}
+
+.content__photo img {
+    width: 100%; 
+    height: max-content;
+}
+
+/* 애니메이션 */
+
+.content {
+    overflow: hidden;
+}
+
+.content__txt {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: slideInUp 1.5s ease forwards;
+}
+
+.content__photo {
+    opacity: 0;
+    transform: translateY(-100%);
+    animation: slideInDown 1s ease forwards;
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content__txt2 {
+    animation: shake 0.5s ease 3;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+    100% { transform: rotate(0deg); }
+}
