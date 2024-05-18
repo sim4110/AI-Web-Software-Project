@@ -89,6 +89,14 @@
     font-size: 24px;
 }
 
+.navbar__account a i {
+    transition: transform 0.3s ease;
+}
+
+.navbar__account a:hover i {
+    transform: scale(1.2);
+}
+
 /* 반응형 */
 
 .navbar__toggleBtn {
