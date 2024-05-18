@@ -1,11 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import auth
 from django.http import HttpResponse
 from .models import UserData
-from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
@@ -32,14 +28,7 @@ def signup(request):
                 phonenumber=phonenumber
             )
             user.save()
-            form = AuthenticationForm(request, data=request.POST)
-            if form.is_valid():
-                user = authenticate(userid=userid, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect('/home')
-                else :
-                    messages.error(request, "login fail")
+            return redirect('main:login')
 
         else :
             res_data=['password Wrong']
@@ -52,16 +41,28 @@ def user_login(request):
     elif request.method == 'POST' :
         userid=request.POST.get('ID_LOGIN')
         userpw=request.POST.get('PW_LOGIN')
+        
+        try:
+            users = UserData.objects.get(userid=userid)
+        except:
+            users=None
 
-        user = authenticate(request, userid=userid,password=userpw)
-        if user is not None:
-            login(request, user)
-            return redirect('/home')
-
+        if users is not None:
+            if users.password == userpw:
+                request.session['user_id']=userid
+                request.session['user_nickname']=users.usernickname
+                return redirect('main:home')                
+            else :
+                messages.info(request, "비밀번호를 다시 입력해 주세요.")
+                return redirect('main:login')
         else :
-            messages.info(request, "ID/비밀번호를 다시 입력해 주세요.")
+            messages.info(request,"ID를 다시 입력해 주세요." )
             return redirect('main:login')
-            
+
+def user_logout(request):
+    del request.session['user_id']
+    del request.session['user_nickname']
+    return redirect('main:login')
 
 def main(request):
     return render(request,'main/main.html')
