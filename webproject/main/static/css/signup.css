@@ -1,56 +1,89 @@
 /*
-#nav{
-    width: 30%;
-    background-color: gainsboro;
-}
+    작성자: 이은총
+    비고: 회원가입 CSS
 */
 
-/*
-#content{
-    width: 70%;
-}
-*/
-
-.row_signup{
-    font-family: 'NanumSquareNeo';
-    margin-top: 100px;
+.signup {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0;
 }
 
-.signup_title{
-    margin: 45px auto;
+.signup__wrapper {
+    padding: 45px;
+    width: 360px;
+    height: 100%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-.signup_title h2{
-    text-align: center;
+/* 제목 */
+
+.signup__title {
+    display: flex;
+    justify-content: center;
 }
 
-.signup_input{
-    margin: 20px auto;
-    width: 400px;
+.signup__title h1 {
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: 28px;
+    margin: 0;
 }
 
-.signup_input .signup_list{
-    margin: 10px auto;
+/* 입력 */
+
+.signup__input {
+    margin-top: 10px;
 }
 
-.signup_input input[type="text"],
-.signup_input input[type="password"],
-.signup_input input[type="tel"],
-.signup_input input[type="email"]{
-    width: 400px;
-    height: 35.2px;
-}
-
-.signup_submit_btn{
-    text-align: center;
-    padding: 25px 20px;
-}
-
-.signup_submit_btn button{
+.signup__input h4 {
+    margin-bottom: 10px;
     font-size: 16px;
-    width: 180px;
-    height: 50px;
-    border-style: none;
-    cursor: pointer;
+}
+
+.signup__input span {
+    display: block;
+  }
+
+.signup__input input[type="text"],
+.signup__input input[type="password"],
+.signup__input input[type="tel"],
+.signup__input input[type="email"] {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup_input {
+    margin-bottom: 15px;
+}
+
+/* 제출 */
+
+.signup__submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.signup__submit button {
     font-family: 'NanumSquareNeoBold';
+    font-size: 16px;
+    color: white;
+    background-color: rgb(26, 172, 116);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 15px 32px;
+    display: inline-block;
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+.signup__submit button:hover {
+  background-color: var(--background-color);
 }

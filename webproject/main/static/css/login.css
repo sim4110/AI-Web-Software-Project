@@ -1,41 +1,90 @@
-.row_login{
-    font-family: 'NanumSquareNeo';
-    margin-top: 100px;
+/*
+    작성자: 이은총
+    비고: 로그인 CSS
+*/
+
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
 }
 
-.login_title{
-    margin: 45px auto;
+.login__wrapper {
+  padding: 45px;
+  width: 360px;
+  height: 100%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-.login_title h2{
-    text-align: center;
+/* 제목 */
+
+.login__title {
+  display: flex;
+  justify-content: center;
 }
 
-.login_input{
-    margin: 20px auto;
-    width: 400px;
+.login__title h1 {
+  font-family: 'NanumSquareNeoExtraBold';
+  font-size: 28px;
+  margin: 0;
 }
 
-.login_input .login_list{
-    margin: 10px auto;
+/* 입력 */
+
+.login__input {
+  margin-top: 10px;
+}
+  
+.login__input h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+  
+.login__input span {
+  display: block;
+}
+  
+.login__input input[type="text"],
+.login__input input[type="password"] {
+  width: 95%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.login_input input[type="text"],
-.login_input input[type="password"]{
-    width: 400px;
-    height: 35.2px;
+.login__input__id,
+.login__input__pw {
+  margin-bottom: 15px;
 }
 
-.login_submit_btn{
-    text-align: center;
-    padding: 25px 20px;
+/* 제출 */
+
+.login__submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.login_submit_btn button{
-    font-size: 16px;
-    width: 180px;
-    height: 50px;
-    border-style: none;
-    cursor: pointer;
-    font-family: 'NanumSquareNeoBold';
+.login__submit button {
+  font-family: 'NanumSquareNeoBold';
+  font-size: 16px;
+  color: white;
+  background-color: rgb(26, 172, 116);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  padding: 15px 32px;
+  display: inline-block;
+  text-align: center;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
+
+.login__submit button:hover {
+  background-color: var(--background-color);
+}
+
+/* 애니메이션 */

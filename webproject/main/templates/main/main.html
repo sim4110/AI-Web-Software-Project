@@ -1,37 +1,92 @@
-<!-- 작성자: 이은총 -->
-<!-- 비고: 메인화면 -->
-<!-- #는 추후에 기입해야 될 부분입니다. -->
+<!-- 
+    작성자: 이은총
+    비고: 메인 화면 HTML 
+-->
 
 <!DOCTYPE html>
 {% load static %}
 <html lang="ko">
     <head>
-        <meta charset="utf-8">
-        <title>#</title>
-        <!-- <link rel="stylesheet" href="../css/nav_var.css"> -->
-        <link rel="stylesheet" href="{% static 'css/nav_var.css' %}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>메인 화면</title>
+        <!-- <link rel="stylesheet" href="../css/basis.css">
+        <link rel="stylesheet" href="../css/navbar.css">
+        <link rel="stylesheet" href="../css/mainContent.css"> -->
+
+        <link rel="stylesheet" href="{% static 'css/basis.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mainContent.css' %}">
+
+
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/11bacb56c6.js" crossorigin="anonymous"></script>
     </head>
     <body>
       <!-- 네비게이션 바 -->
-        <div class="intro">
-            <nav>
-                <div class="logo">
-                    <a href="#">로고</a>
-                </div>
-                <ul class="category">
-                    <li><a href="#">알바</a></li>
-                    <li><a href="#">미용</a></li>
-                </ul>
-                <ul class="login_signup">
-                    {% if user_nick != None %}
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <i class="fa-solid fa-shield-cat"></i>
+                <a href="main.html" title="홈">&nbsp;펫워커</a>
+            </div>
+            <ul class="navbar__menu">
+                <li><a href="#">소개</a></li>
+                <li><a href="#">아르바이트</a>
+                    <ul class="navbar__menu__dropdown">
+                        <li><a href="#">산책</a></li>
+                        <li><a href="#">목욕</a></li>
+                        <li><a href="#">미용</a></li>
+                    </ul>
+                </li>
+                <li><a href="marketList.html">마켓</a>
+                    <ul class="navbar__menu__dropdown">
+                        <li><a href="#">산책</a></li>
+                        <li><a href="#">목욕</a></li>
+                        <li><a href="#">미용</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">스크랩</a></li>
+            </ul>
+            <ul class="navbar__account">
+                {% if user_nick != None %}
                         <li>{{user_nick}}</li>
-                    {% else %}
-                        <li><a href="#">로그인</a></li>
-                        <li><a href="#">회원가입</a></li>
-                    {% endif %}    
+                        <li><a href="{% url 'main:logout' %}" title="로그아웃"><i class="fa-solid fa-right-to-bracket"></i></a></li>
+                {% else %}
+                    <li><a href="{% url 'main:login' %}" title="로그인"><i class="fa-solid fa-circle-user"></i></a></li>
+                    <li><a href="{% url 'main:signup' %}" title="회원가입"><i class="fa-solid fa-circle-plus"></i></a></li>
+                {% endif %}
                 </ul>
-            </nav>
+
+            <a href="#" class="navbar__toggleBtn">
+                <i class="fa-solid fa-bars"></i>
+            </a>
+        </nav>
+
+      <!-- 메인화면 내용 -->
+        <div class="content">
+            <div class="content__txt">
+                <div class="content__txt1">
+                    <div class="content__txt1-1">
+                        <h2>반려동물 구인구직 플랫폼</h2>
+                    </div>
+                    <div class="content__txt1-2">
+                        <h1>펫워커</h1>
+                    </div>
+                </div>
+                <div class="content__txt2">
+                    <div class="content__txt2-1">
+                        <h3>&nbsp;&nbsp;&nbsp;&nbsp;반려동물 케어,&nbsp; 펫워커가 도와드릴게요!&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="content__photo">
+                <div class="content__photo1">
+                    <img src="/static/img/main3.jpg" alt="image_main1">
+                </div>
+            </div>
         </div>
+    
+      <!-- 자바스크립트 -->
+        <script src="/static/js/navbar.js"></script>
     </body>
 </html>

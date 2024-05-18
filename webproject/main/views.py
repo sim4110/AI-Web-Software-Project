@@ -36,7 +36,12 @@ def signup(request):
 
 def user_login(request):
     if request.method == 'GET':
-        return render(request,'login/login.html')
+        try:
+            user_nick=request.session.get('user_nickname')
+            return render(request, 'login/login.html', {'user_nick':user_nick})
+
+        except:
+            return render(request,'login/login.html')
 
     elif request.method == 'POST' :
         userid=request.POST.get('ID_LOGIN')

@@ -1,92 +1,114 @@
-<!-- 작성자: 이은총 -->
-<!-- 비고: 회원가입 -->
-<!-- #는 추후에 기입해야 될 부분입니다. -->
+<!-- 
+    작성자: 이은총
+    비고: 회원가입 화면 HTML
+-->
 
 <!DOCTYPE html>
 {% load static %}
-
 <html lang="ko">
     <head>
-        <meta charset="utf-8">
-        <title>#</title>
-        <!-- <link rel="stylesheet" href="../css/nav_var.css"> -->
-        <!-- <link rel="stylesheet" href="../css/signup.css"> -->
-        
-       <!-- Django에서 css 파일 불러오기 -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>로그인 화면</title>
+        <!-- <link rel="stylesheet" href="../css/basis.css">
+        <link rel="stylesheet" href="../css/navbar.css">
+        <link rel="stylesheet" href="../css/signup.css"> -->
+
+        <link rel="stylesheet" href="{% static 'css/basis.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
         <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-        <link rel="stylesheet" href="{% static 'css/nav_var.css' %}">
+
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/11bacb56c6.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="intro">
-            <nav>
-                <div class="logo">
-                    <a href="#">로고</a>
-                </div>
-                <ul class="category">
-                    <li><a href="#">알바</a></li>
-                    <li><a href="#">미용</a></li>
-                </ul>
-                <ul class="login_signup">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div id="wrapper">
-            <!--
-            <div id="nav">
-                <ul class="nav_vertical">
-                    <li><a href="#">알바</a></li>
-                    <li><a href="#">미용</a></li>
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
-                </ul>
+      <!-- 네비게이션 바 -->
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <i class="fa-solid fa-shield-cat"></i>
+                <a href="main.html" title="홈">&nbsp;펫워커</a>
             </div>
-            -->
-            <div class="row_signup" id="content">
-              <!-- 회원가입 제목 -->
-                <div class="signup_title">
-                    <h2>회원가입</h2>
+            <ul class="navbar__menu">
+                <li><a href="#">소개</a></li>
+                <li><a href="#">아르바이트</a>
+                    <ul class="navbar__menu__dropdown">
+                        <li><a href="#">산책</a></li>
+                        <li><a href="#">목욕</a></li>
+                        <li><a href="#">미용</a></li>
+                    </ul>
+                </li>
+                <li><a href="marketList.html">마켓</a>
+                    <ul class="navbar__menu__dropdown">
+                        <li><a href="#">산책</a></li>
+                        <li><a href="#">목욕</a></li>
+                        <li><a href="#">미용</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">스크랩</a></li>
+            </ul>
+            <ul class="navbar__account">
+                {% if user_nick != None %}
+                        <li>{{user_nick}}</li>
+                {% else %}
+                    <li><a href="{% url 'main:login' %}" title="로그인"><i class="fa-solid fa-circle-user"></i></a></li>
+                    <li><a href="{% url 'main:signup' %}" title="회원가입"><i class="fa-solid fa-circle-plus"></i></a></li>
+                {% endif %}
+            </ul>
+
+            <a href="#" class="navbar__toggleBtn">
+                <i class="fa-solid fa-bars"></i>
+            </a>
+        </nav>
+        
+      <!-- 회원가입 내용 -->
+        <div id="content" class="signup">
+            <div class="signup__wrapper">
+                <div class="signup__title">
+                    <h1>회원가입</h1>
                 </div>
-                <form action="" method="POST" name="SIGNUP_INFO" class="signup_deco">
-                  {% csrf_token %}
-                    <!-- 아이디 입력 -->  
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;아이디<span id="idError"></span></h4>
-                        <span class="signup_input_int"><input type="text" name="ID_SIGNUP" class="#" id="#" maxlength="20" required></span>
-                    </div>
-                  <!-- 비밀번호 입력 -->   
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호<span id="pwError"></span></h4>
-                        <span class="signup_input_int"><input type="password" name="PW_SIGNUP" class="#" id="#" maxlength="20" required></span>
-                    </div>
-                  <!-- 비밀번호 재확인 입력 -->
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;비밀번호 재확인<span id="pw_checkError"></span></h4>
-                        <span class="signup_input_int"><input type="password" name="PW_CHECK_SIGNUP" class="#" id="#" maxlength="20" required></span>
-                    </div>
-                  <!-- 닉네임 입력 -->
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;닉네임<span id=nicknameError></span></h4>
-                        <span class="signup_input_int"><input type="text" name="NICKNAME_SIGNUP" class="#" id="#" maxlength="20" required></span>
-                    </div>
-                  <!-- 전화번호 입력 -->
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;전화번호<span id=telNumError></span></h4>
-                        <span class="signup_input_int"><input type="tel" name="TEL_NUM_SIGNUP" class="#" id="#" maxlength="11" required></span>
-                    </div>
-                  <!-- 이메일 입력 -->
-                    <div class="signup_input">
-                        <h4 class="signup_list">·&nbsp;&nbsp;&nbsp;이메일<span id="emailError"></span></h4>
-                        <span class="signup_email_int" id="emailBox"><input type="email" name="EMAIL_SIGNUP" class="#" id="#" required></span>
-                    </div>
-                  <!-- 제출 버튼 -->
-                    <div class="signup_submit_btn">
-                        <button type="submit" name="SUBMIT_SIGNUP" class="#" id="#">가입하기</button>
-                    </div>
-                </form>
+                <div class="signup__input">
+                    <form action="#" method="POST" name="SIGNUP_INFO" class="signup_deco">
+                        {%  csrf_token %}
+                        <!-- 아이디 입력 -->  
+                        <div class="signup_input">
+                            <h4 class="signup_list">아이디<span id="idError"></span></h4>
+                            <span class="signup_input_int"><input type="text" name="ID_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                        </div>
+                        <!-- 비밀번호 입력 -->   
+                        <div class="signup_input">
+                            <h4 class="signup_list">비밀번호<span id="pwError"></span></h4>
+                            <span class="signup_input_int"><input type="password" name="PW_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                        </div>
+                        <!-- 비밀번호 재확인 입력 -->
+                        <div class="signup_input">
+                            <h4 class="signup_list">비밀번호 재확인<span id="pw_checkError"></span></h4>
+                            <span class="signup_input_int"><input type="password" name="PW_CHECK_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                        </div>
+                        <!-- 닉네임 입력 -->
+                        <div class="signup_input">
+                            <h4 class="signup_list">닉네임<span id=nicknameError></span></h4>
+                            <span class="signup_input_int"><input type="text" name="NICKNAME_SIGNUP" class="#" id="#" maxlength="20" required></span>
+                        </div>
+                        <!-- 전화번호 입력 -->
+                        <div class="signup_input">
+                            <h4 class="signup_list">전화번호<span id=telNumError></span></h4>
+                            <span class="signup_input_int"><input type="tel" name="TEL_NUM_SIGNUP" class="#" id="#" maxlength="11"></span>
+                        </div>
+                        <!-- 이메일 입력 -->
+                        <div class="signup_input">
+                            <h4 class="signup_list">이메일<span id="emailError"></span></h4>
+                            <span class="signup_email_int" id="emailBox"><input type="email" name="EMAIL_SIGNUP" class="#" id="#" required></span>
+                        </div>
+                        <!-- 제출 버튼 -->
+                        <div class="signup__submit">
+                            <button type="submit" name="SUBMIT_SIGNUP" class="#" id="#">가입하기</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+
+      <!-- 자바스크립트 -->
+        <script src="/static/js/navbar.js"></script>
     </body>
 </html>
