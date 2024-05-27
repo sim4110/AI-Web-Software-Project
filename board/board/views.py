@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
@@ -102,4 +103,8 @@ def remove(request, id):
         return redirect(reverse('board:list'))
     else:
         return render(request, 'board/remove.html', {'board':board})
+
+def map(request,id):
+    board = Board.objects.get(pk=id)
+    return render(request, 'board/map.html', {'board':board})
     
