@@ -14,4 +14,5 @@ urlpatterns = [
     path('regist/', views.regist, name='regist'),
     path('edit/<int:id>/', views.edit, name='edit'),
     path('remove/<int:id>/', views.remove, name='remove'),
+    path('map/<int:id>/', views.map, name='map'),
 ]
