@@ -1,0 +1,533 @@
+/* 첫 페이지 시작 */
+
+.board-area {
+    display: flex;
+    justify-content: center;
+}
+
+.board-inner-area {
+    width: 900px;
+}
+
+.board-title h1 {
+    margin: 40px 0 35px 0;
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: 33px;
+}
+
+.board-option {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    position: relative; 
+}
+
+.board-option-dropdown {
+    position: relative; 
+}
+
+.board-option-dropdown > button {
+    font-family: 'NanumSquareNeoBold';
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: rgb(26, 172, 116);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 12px 25px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    z-index: 1; /* Add this */
+}
+
+.board-option-dropdown:hover .board-option-dropdown-content {
+    display: block;
+}
+
+.board-option-dropdown-btn:hover {
+    background-color: var(--background-color);
+}
+
+.board-option-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    left: 0; 
+    z-index: 2; 
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.board-option-dropdown-content button {
+    display: block;
+    font-family: 'NanumSquareNeoBold';
+    font-size: 15px;
+    color: #5c5c5c;
+    border: none;
+    background: none;
+    text-align: center;
+    padding: 10px;
+    width: 128.51px;
+    height: 41.6px;
+    cursor: pointer;
+}
+
+.board-option-dropdown-content button:hover {
+    background-color: #eeeeee;
+}
+
+.board-option-item-1 ul {
+    padding: 0;
+    list-style: none;
+}
+
+.index-links li a {
+    color: black;
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: rgb(26, 172, 116);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 12px 35px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.index-links li a:hover {
+    background-color: var(--background-color);
+}
+
+
+/* 첫 페이지 종료 */
+
+
+
+
+
+/* 게시글 등록 시작 */
+
+.regist-area {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.regist-inner-area {
+    padding: 45px;
+    width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.regist-title {
+    display: flex;
+    justify-content: center;
+}
+
+.regist-title h1 {
+    margin: 0;
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: 28px;
+    color: black;
+}
+
+.regist-content-form table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: none;
+}
+
+.regist-content-form table th {
+    width: 80px;
+    text-align: left;
+}
+
+.regist-content-form table td {
+    padding: 10px 20px 10px 20px;
+}
+
+.regist-content-form table td input[type="text"],
+.regist-content-form table td input[type="datetime-local"],
+.regist-content-form table td textarea {
+    width: 98%; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.address-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.address-group input[type="text"] {
+    flex-grow: 1;
+}
+
+.address-group button {
+    white-space: nowrap;
+}
+
+.regist-content-form table th,
+.regist-content-form table td {
+    border: none;
+}
+
+.regist-content-form-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.regist-content-form-submit button {
+    font-family: 'NanumSquareNeoBold';
+    font-size: 16px;
+    color: white;
+    background-color: rgb(26, 172, 116);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 15px 32px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.regist-content-form-submit button:hover {
+    background-color: var(--background-color);
+}
+
+/* 게시글 등록 종료 */
+
+
+
+
+
+/* 게시글 읽기 시작 */
+
+p {
+    margin: 0;
+    font-family: 'NanumSquareNeo';
+}
+
+hr {
+    margin: 15px 0;
+    color: #ccc;
+}
+
+.read-area {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.read-inner-area {
+    padding: 25px 45px;
+    width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.read-categoty p {
+    font-size: 13px;
+}
+
+.read-title h1 {
+    margin: 15px 0;
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: 28px;
+}
+
+.read-title-details {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.read-img {
+    display: flex;
+    justify-content: center;
+}
+
+.read-img img {
+    margin: 5px 0 15px 0;
+}
+
+.read-content table {
+    border-collapse: collapse;
+    border: none;
+}
+
+.read-content table th {
+    width: 90px;
+    text-align: left;
+}
+
+.read-content table th,
+.read-content table td {
+    border: none;
+    padding: 5px 5px 5px 0;
+}
+
+.read-option {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rightside-option {
+    display: flex;
+}
+
+.delete-button {
+    margin-left: 10px;
+}
+
+.read-option button {
+    font-family: 'NanumSquareNeoBold';
+    font-size: 13px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.list-button button,
+.edit-button button {
+    background-color: #eeeeee;
+}
+
+.list-button button:hover,
+.edit-button button:hover {
+    background-color: #e3e3e3;
+}
+
+.delete-button button {
+    color: white;
+    background-color: #b45d5d;
+}
+
+.delete-button button:hover {
+    background-color: #8e4a4a;
+}
+
+/* 게시글 읽기 종료 */
+
+
+
+
+
+/* 게시글 수정 시작 */
+
+.edit-area {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.edit-inner-area {
+    padding: 45px;
+    width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.edit-title {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-title h1 {
+    margin: 0;
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: 28px;
+    color: black;
+}
+
+.edit-startdate,
+.edit-enddate {
+    margin-bottom: 10px;
+} 
+
+.edit-startdate label,
+.edit-enddate label {
+    font-size: 14px;
+}
+
+.edit-content-form table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: none;
+}
+
+.edit-content-form table th {
+    width: 80px;
+    text-align: left;
+}
+
+.edit-content-form table td {
+    padding: 10px 20px 10px 20px;
+}
+
+.edit-content-form table td input[type="text"],
+.edit-content-form table td input[type="datetime-local"],
+.edit-content-form table td textarea {
+    width: 98%; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.address-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.address-group input[type="text"] {
+    flex-grow: 1;
+}
+
+.address-group button {
+    white-space: nowrap;
+}
+
+.edit-content-form table th,
+.edit-content-form table td {
+    border: none;
+}
+
+.edit-content-form-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.edit-content-form-submit button {
+    font-family: 'NanumSquareNeoBold';
+    font-size: 16px;
+    color: white;
+    background-color: rgb(26, 172, 116);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 15px 32px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.edit-content-form-submit button:hover {
+    background-color: var(--background-color);
+}
+
+/* 게시글 수정 종료 */
+
+
+
+
+
+/* 게시글 삭제 시작 */
+
+.delete-area {
+    margin: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.delete-inner-area {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.delete-content-phrase {
+    padding: 25px 60px;
+    text-align: center;
+}
+
+.delete-content-phrase p {
+    color: #5c5c5c;
+    font-size: 14px;
+}
+
+.delete-content-phrase p:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.delete-content-btn {
+    display: flex;
+    width: 100%;
+    border-top: 1px solid #e8e8e8;
+}
+
+.delete-content-btn button {
+    flex: 1;
+    margin: 0;
+    padding: 12px;
+    font-size: 15px;
+    font-family: 'NanumSquareNeo';
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.delete-content-btn button:first-child {
+    border-right: 1px solid #e8e8e8;
+}
+
+.delete-confirm {
+    color: rgb(26, 172, 116);
+}
+
+/* 게시글 삭제 종료 */
+
+
+
+
+
+/* 게시글 나열 시작 */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    flex: 0 0 286.68px;
+    height: 150px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card a {
+    color: black;
+}
+
+.card-lowerside {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.list-area {
+    margin-bottom: 30px;
+}
+
+/* 게시글 나열 종료 */
