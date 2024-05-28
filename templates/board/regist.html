@@ -1,0 +1,116 @@
+{% extends 'board/base.html' %}
+{% block title %}게시글 등록{% endblock %}
+{% block content %}
+<div class="regist-area">
+  <div class="regist-inner-area">
+    <div class="regist-title">
+      <h1>게시글 등록</h1>
+    </div>
+    <div class="regist-content">
+      <form method="post" enctype="multipart/form-data" class="regist-content-form">
+        {% csrf_token %}
+        <table border="1">
+          <tr>
+            <th>제목</th>
+            <td>
+              <input type="text" name="title" required>
+            </td>
+          </tr>
+          <tr>
+            <th>카테고리</th>
+            <td>
+              <input type="radio" name="type" value="산책"> 산책 
+              <input type="radio" name="type" value="목욕"> 목욕 
+              <input type="radio" name="type" value="미용"> 미용 
+            </td>
+          </tr>
+          <tr>
+            <th>대표 사진</th>
+            <td>
+              <input type="file" name="imgfile" id="imgfile">
+            </td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td>
+              <input type="text" name="writer" required>
+            </td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td>
+              <textarea name="content"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>시작 날짜</th>
+            <td>
+              <input type="datetime-local" name="startdate" required>
+            </td>
+          </tr>
+          <tr>
+            <th>종료 날짜</th>
+            <td>
+              <input type="datetime-local" name="enddate" required>
+            </td>
+          </tr>
+          <tr>
+            <th>급여</th>
+            <td>
+              <input type="text" name="payment" required>
+            </td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>
+              <div class="address-group">
+                <input type="text" name ="zonecode" id="zonecode" placeholder=""/>
+                <button  id="search-btn">우편번호 찾기</button>
+              </div>
+              <input type="text" name ="roadAddress" id="roadAddress" placeholder=""/>
+              <input type="text" name ="roadAddressDetail" id="roadAddressDetail" placeholder="상세주소를 입력해주세요." required />
+            </td>
+          </tr>
+        </table>
+        <div class="regist-content-form-submit">
+          <button type="submit">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    const elZonecode = document.querySelector("#zonecode");
+    const elRoadAddress = document.querySelector("#roadAddress");
+    const elResults = document.querySelectorAll(".el_result");
+   
+    const onClickSearch = () => {
+      console.log(1);
+      new daum.Postcode({
+        oncomplete: function (data) {
+          
+          console.log(data);
+          elZonecode.setAttribute("value", data.zonecode);
+          elRoadAddress.setAttribute("value", data.roadAddress);
+          
+        },
+      }).open();
+    };
+    const register = () => {
+      console.log(`우편번호: ${elZonecode.getAttribute("value")}`);
+      console.log(`주소: ${elRoadAddress.getAttribute("value")}`);
+      elResults[0].innerHTML = elZonecode.getAttribute("value");
+      elResults[1].innerHTML = elRoadAddress.getAttribute("value");
+    };
+    
+    document.querySelector("#search-btn").addEventListener("click", () => {
+      onClickSearch();
+    });
+
+    
+
+  </script>
+
+{% endblock %}

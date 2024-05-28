@@ -1,0 +1,50 @@
+{% extends 'board/base.html' %}
+{% block title %}목록{% endblock %}
+{% block content %}
+
+<div class="board-area">
+    <div class="board-inner-area">
+        <div class="board-title">
+            <h1>아르바이트</h1>
+        </div>
+        <div class="board-option">
+            <div class="board-option-dropdown">
+                <button class="board-option-dropdown-btn">카테고리&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
+                <div class="board-option-dropdown-content">
+                    <a href="{% url 'board:list' %}"><button>전체</button></a>
+                    <a href="{% url 'board:list_walk' %}"><button>산책</button></a>
+                    <a href="{% url 'board:list_grooming' %}"><button>미용</button></a>
+                    <a href="{% url 'board:list_wash' %}"><button>목욕</button></a>
+                </div>
+            </div>
+            <div class="board-option-item-1">
+                <ul class="index-links">
+                    <li><a href="{% url 'board:regist' %}">등록</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="list-area">
+            <div class="list-inner-area" >
+                <div class="card-container">
+                    {% if board_list %}
+                        {% for board in board_list %}
+                        {% if board.type == "산책" %}
+                            <div class="card">
+                                <p>번호: {{board.id}}</p>
+                                <h2><a href="{% url 'board:read' board.id %}">{{board.title}}</a></h2>
+                                <div class="card-lowerside">
+                                    <p>작성자: {{board.writer}}</p>
+                                    <p>조회수: {{board.readcount}}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        게시글이 존재하지 않습니다.
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

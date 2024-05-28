@@ -1,0 +1,124 @@
+{% extends 'board/base.html' %}
+{% block title %}게시글 수정{% endblock %}
+{% block content %}
+
+<div class="edit-area">
+  <div class="edit-inner-area">
+    <div class="edit-title">
+      <h1>게시글 수정</h1>
+    </div>
+    <div class="edit-content">
+      <form method="post" enctype="multipart/form-data" class="edit-content-form">
+        {% csrf_token %}
+        <input type="hidden" name="writer" value="{{board.writer}}">
+        <table border="1">
+        <tr>
+            <th>제목</th>
+            <td>
+                <input type="text" name="title" value="{{board.title}}" required>
+            </td>
+        </tr>
+        <tr>
+          <th>카테고리</th>
+          <td>
+              <input type="radio" name="type" value="산책"> 산책 <br>
+              <input type="radio" name="type" value="목욕"> 목욕 <br>
+              <input type="radio" name="type" value="미용"> 미용 <br>
+          </td>
+        </tr>
+        <tr>
+            <th>대표 사진</th>
+            <td>
+                <input type="file" name="imgfile" id="imgfile">
+            </td>
+      </tr>
+        <tr>
+            <th>작성자</th>
+            <td>
+                <input type="text" name="writer" value="{{board.writer}}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td>
+                <textarea name="content">{{board.content}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>시작 날짜</th>
+            <td>
+              <div class="edit-startdate">
+                <label for="datetime">기존 날짜: "{{board.startdate}}"
+              </div>
+                <input type="datetime-local" name="startdate" value="{{board.startdate}}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>종료 날짜</th>
+            <td>
+              <div class="edit-enddate">
+                <label for="datetime">기존 날짜: "{{board.enddate}}"
+              </div>
+                <input type="datetime-local" name="enddate" value="{{board.enddate}}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>급여</th>
+            <td>
+                <input type="text" name="payment" value="{{board.payment}}" required>
+            </td>
+        </tr>
+        <tr>
+            <th>주소</th>
+            <td>
+              <div class="address-group">
+                <input type="text" name ="zonecode" value="{{board.zonecode}}" id="zonecode"/>
+                <button  id="search-btn">우편번호 찾기</button>
+              </div>
+              <input type="text" name ="roadAddress" value="{{board.roadAddress}}" id="roadAddress"/>
+              <input type="text" name ="roadAddressDetail" value="{{board.roadAddressDetail}}" id="roadAddressDetail" required/>
+            </td>
+        </tr>
+        </table>
+        <div class="edit-content-form-submit">
+          <button type="submit">수정</button>
+       </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    const elZonecode = document.querySelector("#zonecode");
+    const elRoadAddress = document.querySelector("#roadAddress");
+    const elResults = document.querySelectorAll(".el_result");
+   
+    const onClickSearch = () => {
+      console.log(1);
+      new daum.Postcode({
+        oncomplete: function (data) {
+          
+          console.log(data);
+          elZonecode.setAttribute("value", data.zonecode);
+          elRoadAddress.setAttribute("value", data.roadAddress);
+          
+        },
+      }).open();
+    };
+    const register = () => {
+      console.log(`우편번호: ${elZonecode.getAttribute("value")}`);
+      console.log(`주소: ${elRoadAddress.getAttribute("value")}`);
+      elResults[0].innerHTML = elZonecode.getAttribute("value");
+      elResults[1].innerHTML = elRoadAddress.getAttribute("value");
+    };
+    
+    document.querySelector("#search-btn").addEventListener("click", () => {
+      onClickSearch();
+    });
+    
+  </script>
+
+{% endblock %}

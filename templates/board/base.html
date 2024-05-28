@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}적어야 됨{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/basis.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/11bacb56c6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- 네비게이션 바(블록으로 수정해야 됨) -->
+    <nav class="navbar">
+        <div class="navbar__logo">
+            <i class="fa-solid fa-shield-cat"></i>
+            <a href="main.html" title="홈">&nbsp;펫워커</a>
+        </div>
+        <ul class="navbar__menu">
+            <li><a href="#">소개</a></li>
+            <li><a href="#">아르바이트</a>
+                <ul class="navbar__menu__dropdown">
+                    <li><a href="#">산책</a></li>
+                    <li><a href="#">목욕</a></li>
+                    <li><a href="#">미용</a></li>
+                </ul>
+            </li>
+            <li><a href="marketList.html">마켓</a>
+                <ul class="navbar__menu__dropdown">
+                    <li><a href="#">산책</a></li>
+                    <li><a href="#">목욕</a></li>
+                    <li><a href="#">미용</a></li>
+                </ul>
+            </li>
+            <li><a href="#">스크랩</a></li>
+        </ul>
+        <ul class="navbar__account">
+            <li><a href="login.html" title="로그인"><i class="fa-solid fa-circle-user"></i></a></li>
+            <li><a href="signup.html" title="회원가입"><i class="fa-solid fa-circle-plus"></i></a></li>
+        </ul>
+
+        <a href="#" class="navbar__toggleBtn">
+            <i class="fa-solid fa-bars"></i>
+        </a>
+    </nav>
+
+    {% block content %}{% endblock %}
+    
+    <!-- 자바스크립트 -->
+    <script src="{% static 'javascript/navbar.js' %}"></script>
+</body>
+</html>
