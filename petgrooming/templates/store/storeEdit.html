@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+</head>
+<body>
+    <h1>Edit Store</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Store Name</th>
+                <td><input type="text" name="STORE_NAME" value="{{ store.store_name }}"></td>
+            </tr>
+            <tr>
+                <th>Owner</th>
+                <td><input type="text" name="STORE_OWNER" value="{{ store.store_owner }}"></td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td><input type="text" name="TEL_NUM" value="{{ store.tel_num }}"></td>
+            </tr>
+            <tr>
+                <th>Anesthesia</th>
+                <td><input type="text" name="anesthesia" value="{{ store.anesthesia }}"></td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td><input type="text" name="location" value="{{ store.location }}"></td>
+            </tr>
+            <tr>
+                <th>Open Time</th>
+                <td>
+                    가게 여는 시간 선택:
+                    <input type="time" name="OPENING_TIME" value="{{ store.opentime }}" required>
+                </td>
+            </tr>
+            <tr>
+                <th>Close Time</th>
+                <td>
+                    가게 닫는 시간 선택:
+                    <input type="time" name="CLOSING_TIME" value="{{ store.closetime }}" required>
+                </td>
+            </tr>
+            <tr>
+                <th>Store Image</th>
+                <td><input type="file" name="STORE_IMAGE"></td>
+            </tr>
+            <tr>
+                <th>Qualifications</th>
+                <td><input type="text" name="qualifications" value="{{ store.qualifications }}"></td>
+            </tr>
+        </table>
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>

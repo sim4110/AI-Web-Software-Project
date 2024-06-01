@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>애견 미용샵 등록</title>
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+        <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+        <script>
+            // 현재 시각을 가져와 yy.mm.dd.time 형식으로 입력창에 보여주는 함수
+            function setCurrentTime() {
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var day = ("0" + now.getDate()).slice(-2);
+                var hours = ("0" + now.getHours()).slice(-2);
+                var minutes = ("0" + now.getMinutes()).slice(-2);
+                var formattedDate = year + "." + month + "." + day + " " + hours + ":" + minutes;
+                document.getElementById('WRITE_TIME').value = formattedDate;
+            }
+
+            // 입력창을 하나씩 더 생성하는 함수
+            function addQualificationField() {
+                var container = document.getElementById('qualifications');
+                var input = document.createElement('input');
+                var numInputs = container.getElementsByTagName('input').length;
+                input.type = 'text';
+                input.name = 'qualifications'+ numInputs;
+                container.appendChild(input);
+                container.appendChild(document.createElement('br'));
+            }
+
+            window.onload = function() {
+                setCurrentTime();
+            }
+        </script>
+    </head>
+    <body>  
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <ul>
+                    <li>작성시간
+                        <input type="text" id="WRITE_TIME" name="writetime" readonly>
+                    </li>
+                    <li>작성자 {{writer}}</li>
+                    <li>상호명<input type="text" name="STORE_NAME" required></li>
+                    <li>대표자명<input type="text" name="STORE_OWNER" required></li>
+                    <li>연락처<input type="tel" name="TEL_NUM" required></li>
+                    <li>마취여부<br>
+                        <input type="radio" name="anesthesia" value="마취"> 마취
+                        <input type="radio" name="anesthesia" value="마취 없음"> 마취 없음
+                    </li>
+                    <li>가게 위치</li>
+                    <li>영업 시간<br>
+                        가게 여는 시간 선택
+                        <input type="time" name="OPENING_TIME" required><br>
+                        가게 닫는 시간 선택
+                        <input type="time" name="CLOSING_TIME" required>
+                    </li>
+                    <li>수상/자격 내용 
+                        <div id="qualifications">
+                            <input type="text" name="qualifications"><br>
+                        </div>
+                        <button type="button" onclick="addQualificationField()">추가</button>
+                    </li>
+                    <li>대표 이미지 등록<input type="file" name="STORE_IMAGE"></li>
+                </ul>
+                <button type="submit" name="SUBMIT_STOREINF">등록하기</button>
+            </form>
+        </div>
+    </body>
+</html>

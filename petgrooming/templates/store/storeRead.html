@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ store.store_name }}</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ store.store_name }}</h1>
+    <table>
+        <tr>
+            <th>Store Name</th>
+            <td>{{ store.store_name }}</td>
+        </tr>
+        <tr>
+            <th>Owner</th>
+            <td>{{ store.store_owner }}</td>
+        </tr>
+        <tr>
+            <th>Telephone</th>
+            <td>{{ store.tel_num }}</td>
+        </tr>
+        <tr>
+            <th>Anesthesia</th>
+            <td>{{ store.anesthesia }}</td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td>{{ store.location }}</td>
+        </tr>
+        <tr>
+            <th>Open Time</th>
+            <td>{{ store.opentime }}</td>
+        </tr>
+        <tr>
+            <th>Close Time</th>
+            <td>{{ store.closetime }}</td>
+        </tr>
+        <tr>
+            <th>Store Image</th>
+            <td>
+                {% if store.store_image %}
+                    <img src="{{ store.store_image.url }}" alt="Store Image">
+                {% else %}
+                    No image available.
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Qualifications</th>
+            <td>
+                <ul>
+                    {% for qualification in store.qualifications.all %}
+                        <li>{{ qualification.description }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+    
+    <h2>Actions</h2>
+    <form method="get" action="{% url 'petgrooming:storeEdit' store.id %}">
+        {% csrf_token %}
+        <button type="submit">Edit Store</button>
+    </form>
+
+    <form method="post" action="{% url 'petgrooming:storeDelete' store.id %}" onsubmit="return confirm('정말로 홍보글을 삭제하시겠습니까?');">
+        {% csrf_token %}
+        <button type="submit">Delete Store</button>
+    </form>
+
+    <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="STATUS" value="LIKE">
+        <button type="submit">Like</button>
+    </form>
+
+
+
+    <h2>Comments</h2>
+    <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="STATUS" value="CREATE">
+        <input type="text" name="content" placeholder="Add a comment">
+        <button type="submit">Add Comment</button>
+    </form>
+
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <p>{{ comment.writer }}: {{ comment.content }}</p>
+                <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="STATUS" value="DELETE">
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+                <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="STATUS" value="EDIT">
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                    <input type="text" name="content" value="{{ comment.content }}">
+                    <button type="submit">Edit</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

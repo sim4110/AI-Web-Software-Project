@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>애견 미용샵 목록</title>
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Store List</h1>
+    {% if stores %}
+    <table>
+        <thead>
+            <tr>
+                <th>상호명</th>
+                <th>대표자</th>
+                <th>위치</th>
+                <th>Open Time</th>
+                <th>Close Time</th>
+                <th>조회수</th>
+                <th>좋아요</th>
+                <th>상세보기</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                {% for store in stores %}
+                    <tr>
+                        <td>{{ store.store_name }}</td>
+                        <td>{{ store.store_owner }}</td>
+                        <td>{{ store.location }}</td>
+                        <td>{{ store.opentime }}</td>
+                        <td>{{ store.closetime }}</td>
+                        <td>{{ store.readcount }}</td>
+                        <td>{{ store.likecount }}</td>
+                        <td><a href="{% url 'petgrooming:storeRead' store.id %}">View Details</a></td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        홍보글이 존재하지 않습니다.
+    {% endif %} 
+    </body>
+</html>
