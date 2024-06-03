@@ -111,6 +111,7 @@ def store_edit(request,id):
             store.location = request.POST.get('location')
             store.opentime = request.POST.get('OPENING_TIME')
             store.closetime = request.POST.get('CLOSING_TIME')
+            store.store_image = request.FILES.get('STORE_IMAGE')
             
             if store.opentime is None:
                 store.opentime = '09:00'
@@ -118,11 +119,11 @@ def store_edit(request,id):
                 store.closetime = '18:00'
 
             store.save()
-            messages.success(request, '홍보글을 업데이트했습니다.')
+            # messages.success(request, '홍보글을 업데이트했습니다.')
             return redirect('petgrooming:storeRead', id=id)
         
     else:
-        messages.error(request, '해당 홍보글 작성자가 아닙니다.')
+        # messages.error(request, '해당 홍보글 작성자가 아닙니다.')
         return render(request, 'store/storeEdit.html',{'store':store})
 
 
@@ -136,10 +137,11 @@ def store_delete(request, id):
         if store != None:
             if store.writer == request.session.get('user_id'):
                 store.delete()
-                messages.success(request, '홍보글 삭제를 완료했습니다.')
+                # messages.success(request, '홍보글 삭제를 완료했습니다.')
                 return redirect('petgrooming:storeList')
-            else :
-                messages.error(request, '해당 홍보글 작성자가 아닙니다.')
+            # else :
+                # messages.error(request, '해당 홍보글 작성자가 아닙니다.')
+
             return redirect('petgrooming:storeRead', id=store.id)
         else :
             return redirect('petgrooming:storeList')
@@ -172,8 +174,8 @@ def comment_delete(request,store):
         comment = CommentData.objects.get(pk=comment_id)
         if comment.writer == request.session.get('user_id'):
             comment.delete()
-        else :
-            messages.error(request, '댓글 작성자가 아닙니다.')
+        # else :
+            # messages.error(request, '댓글 작성자가 아닙니다.')
     return redirect('petgrooming:storeRead', id=store.id)
 
 
@@ -185,8 +187,8 @@ def comment_edit(request, store):
         if comment.writer == request.session.get('user_id'):
             comment.content = content
             comment.save()
-        else:
-            messages.error(request, '댓글 작성자가 아닙니다.')
+        # else:
+            # messages.error(request, '댓글 작성자가 아닙니다.')
     return redirect('petgrooming:storeRead', id=store.id)
 
 

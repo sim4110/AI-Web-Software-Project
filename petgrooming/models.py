@@ -13,7 +13,7 @@ class StoreData(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
     opentime = models.TimeField(default='09:00')
     closetime = models.TimeField(default='18:00')
-    store_image = models.ImageField(upload_to='store_images/', blank=True, null=True)
+    store_image = models.ImageField(upload_to='store_images', blank=True, null=True)
     readcount= models.IntegerField(default=0)
     likecount=models.IntegerField(default=0)
 
