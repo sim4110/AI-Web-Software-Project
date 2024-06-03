@@ -18,8 +18,7 @@
             background-color: #f2f2f2;
         }
     </style>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
-    
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4720b949830d84db555a4563b4ad6ce4&libraries=services"></script>
 </head>
 <body>
     <h1>{{ store.store_name }}</h1>
@@ -79,7 +78,7 @@
             <td>
                 <div id="map" style="width:800px;height:400px;"></div>
                 <script>
-                     document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function() {
                         var mapContainer = document.getElementById('map');
                         var mapOption = {
                             center: new kakao.maps.LatLng(37.5665, 126.9780), // 기본 중심 좌표
@@ -109,9 +108,7 @@
                     
                 </script>
             </td>
-
         </tr>
-
     </table>
     
     <h2>Actions</h2>
@@ -135,8 +132,6 @@
         {% csrf_token %}
         <button type="submit">Scrap</button>
     </form>
-
-
 
     <h2>댓글창</h2>
     <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">

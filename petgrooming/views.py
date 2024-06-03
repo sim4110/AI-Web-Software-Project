@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from .models import StoreData, Qualification, CommentData, LikeData, ScrapData
-# from .forms import StoreDataForm
+
 from django.contrib import messages
 from django.utils import timezone
 
 # Create your views here.
+
 
 def store_regist(request) :
     try : 
@@ -21,7 +22,7 @@ def store_regist(request) :
         closing_time = request.POST.get('CLOSING_TIME')
         qualifications = request.POST.getlist('qualifications')
         store_image = request.FILES.get('STORE_IMAGE')
-        
+
         postcode = request.POST.get('POSTCODE')
         address = request.POST.get('ADDRESS')
         detail_address = request.POST.get('DETAIL_ADDRESS')
@@ -58,11 +59,12 @@ def store_regist(request) :
                 Qualification.objects.create(pet_shop=store_data, description=qualification)
         
         return redirect('petgrooming:storeList')
-    
+
     else :
         return render(request, 'store/storeRegist.html', {'writer': writer})
-        
-def store_read(request,id):
+
+
+def store_read(request,id) :
     # 데이터베이스에 저장된 특정 id값(userid아님 데이터 num id)글 데이터들 화면에 출력한다.
     # comment(댓글)작성, 수정, 삭제, 리스트 보여주기
     try:
@@ -103,7 +105,7 @@ def store_read(request,id):
         return render(request,'store/storeRead.html', {'store':store, 'comments':comment_list})
 
 
-def store_edit(request,id):
+def store_edit(request,id) :
     #데이터베이스에 저장된 특정 id값의 글 데이터들 <ipnut type>에 각각 띄워준다.
     #사용자가 <input type>의 내용을 수정한 값 받아온다.(method==post일 때) 
     #수정 버튼을 누르면 현재 로그인된 사용자가 특정 id값의 글의 작성자(writer)와 동일한지 확인한다.
@@ -113,7 +115,7 @@ def store_edit(request,id):
         store = StoreData.objects.get(pk=id)
     except:
         store = None
-    
+
     if request.method == 'POST':
         if store.writer == request.session.get('user_id'):
             store.store_name = request.POST.get('STORE_NAME')
@@ -143,7 +145,7 @@ def store_edit(request,id):
         return render(request, 'store/storeEdit.html',{'store':store})
 
 
-def store_delete(request, id):
+def store_delete(request, id) :
     #데이터베이스 저장된 특정 id값을 데이터를 삭제한다.
     if request.method == 'POST':
         try:
@@ -168,7 +170,7 @@ def store_delete(request, id):
             return redirect('petgrooming:storeList')
 
 
-def store_list(request):
+def store_list(request) :
     #작성해 등록한 글들 리스트 보여준다. 
     #등록된 각 글들 <a href>태그사용해 클릭하면 store read로 이어짐
     #++마이페이지, 좋아요 버튼 연동해야함
@@ -177,7 +179,7 @@ def store_list(request):
 
 
 #댓글기능
-def comment_create(request, store):
+def comment_create(request, store) :
     if request.method == 'POST' :
         content = request.POST.get('content')
         new_comment = CommentData(
@@ -189,7 +191,7 @@ def comment_create(request, store):
     return redirect('petgrooming:storeRead', id=store.id)
 
 
-def comment_delete(request,store):
+def comment_delete(request,store) :
     if request.method == 'POST':
         comment_id  = request.POST.get('comment_id')
         comment = CommentData.objects.get(pk=comment_id)
@@ -200,7 +202,7 @@ def comment_delete(request,store):
     return redirect('petgrooming:storeRead', id=store.id)
 
 
-def comment_edit(request, store):
+def comment_edit(request, store) :
     if request.method == 'POST':
         comment_id = request.POST.get('comment_id')
         content = request.POST.get('content')
@@ -213,31 +215,27 @@ def comment_edit(request, store):
     return redirect('petgrooming:storeRead', id=store.id)
 
 
-def comment_list(request):
+def comment_list(request) :
     store_list = StoreData.objects.all().order_by('-id')
     return render(request, 'store/storeList.html', {'stores': store_list})
 
 
-def store_scrap(request,id):
+def store_scrap(request,id) :
 # 스크랩 등록 - 스크랩한 유저 id ScrapData 테이블에 저장
-# 만약 스크랩 버튼 누른 유저가 이미 존재한다면, 메시지 출력(스크랩을 취소하시겠습니까?)
+# 만약 스크랩 버튼 누른 유저가 이미 스크랩한 상태라면 스크랩 취소
 # 아니면 스크랩에 유저 id 추가
-    try:
-        store = StoreData.objects.get(pk=id)
-    except:
-        store = None
+    store = StoreData.objects.get(pk=id)
+    user_id = request.session.get('user_id')
+    
+    if user_id is None:
+        return redirect('main:login')
 
-    if request.method == 'post':
-        user_id = request.session.get('user_id')
-        if user_id is not None:
-            if ScrapData.objects.filter(store=store, likeuser=user_id).exists():
-                #취소 여부 물어보기
-                scrap_list =ScrapData.objects.filter(store=store, user_id=user_id)
-                scrap_list.delete()
-                return 
-            else :
-                new_scrap_user = ScrapData(
-                    user_id =user_id
-                )
-                new_scrap_user.save()
+    if request.method == 'POST':
+        if ScrapData.objects.filter(store=store, scrap_user=user_id).exists():
+            #스크랩 취소 
+            ScrapData.objects.filter(store=store, scrap_user=user_id).delete()
+        else :
+            #스크랩 추가
+            ScrapData.objects.create(store=store, scrap_user=user_id)
+            
     return redirect('petgrooming:storeRead',id=store.id)

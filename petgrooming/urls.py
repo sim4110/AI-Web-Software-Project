@@ -11,6 +11,6 @@ urlpatterns =[
     path('storeedit/<int:id>',views.store_edit,name='storeEdit'),
     path('storeremove/<int:id>', views.store_delete, name='storeDelete'),
     path('storeregist/', views.store_regist,name='storeRegist'),
-    path('storescrap/', views.store_scrap,name='storeScrap'),
+    path('storescrap/<int:id>', views.store_scrap,name='storeScrap'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
