@@ -10,9 +10,14 @@ class StoreData(models.Model):
     store_owner = models.CharField(max_length=100, blank=True)
     tel_num = models.CharField(max_length=15, blank=True)
     anesthesia = models.CharField(max_length=20, default='마취 없음')
-    location = models.CharField(max_length=255, blank=True, null=True)
     opentime = models.TimeField(default='09:00')
     closetime = models.TimeField(default='18:00')
+    
+    postcode=models.CharField(max_length=100, blank=True)
+    address=models.CharField(max_length=100, blank=True)
+    detail_address=models.CharField(max_length=100, blank=True)
+    extra_address=models.CharField(max_length=100, blank=True)
+    
     store_image = models.ImageField(upload_to='store_images', blank=True, null=True)
     readcount= models.IntegerField(default=0)
     likecount=models.IntegerField(default=0)
@@ -47,9 +52,9 @@ class LikeData(models.Model):
         db_table='store_like' 
 
 
-   
+class ScrapData(models.Model):
+    store=models.ForeignKey(StoreData,related_name='scraps' , on_delete=models.CASCADE)
+    scrap_user = models.CharField(max_length=100, blank=True)
 
-
-    
-
-
+    class Meta:
+        db_table='store_scrap'

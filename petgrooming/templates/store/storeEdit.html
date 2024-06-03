@@ -3,7 +3,47 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function execDaumPostcode(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                var addr = '';
+                var extraAddr ='';
+
+                if(data.userSelectedType === 'R'){
+                    addr=data.roadAddress;
+                }
+                else{
+                    addr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr+=(extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                        extraAddr = '('+extraAddr+')';
+                    }
+
+                    document.getElementById("extraAddress").value=extraAddr;
+                }   
+
+                else{
+                    document.getElementById("extraAddress").value='';
+                }
+
+                document.getElementById('postcode').value=data.zonecode;
+                document.getElementById("address").value=addr;
+                document.getElementById("detailAddress").focus();
+            }
+            }).open();
+        }
+        
+    </script>
 </head>
 <body>
     <h1>Edit Store</h1>
@@ -28,7 +68,13 @@
             </tr>
             <tr>
                 <th>Location</th>
-                <td><input type="text" name="location" value="{{ store.location }}"></td>
+                <td>
+                    <input type="text" id="POSTCODE" placeholder="우편번호"><br>
+                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+                        <input type="text" id="ADDRESS" placeholder="주소"><br>
+                        <input type="text" id="DETAIL_ADDRESS" placeholder="상세주소"><br>
+                        <input type="text" id="EXTRA_ADDRESS" placeholder="참고항목">
+                </td>
             </tr>
             <tr>
                 <th>Open Time</th>

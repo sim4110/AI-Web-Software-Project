@@ -6,6 +6,7 @@
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
     </head>
     <body>
+        <a href="{% url 'petgrooming:storeRegist' %}"><button>홍보글 작성</button></a>
         <h1>Store List</h1>
     {% if stores %}
     <table>
@@ -22,7 +23,6 @@
             </tr>
         </thead>
         <tbody>
-            
                 {% for store in stores %}
                     <tr>
                         <td>{{ store.store_name }}</td>

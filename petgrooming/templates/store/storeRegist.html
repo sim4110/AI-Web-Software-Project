@@ -5,6 +5,7 @@
         <title>애견 미용샵 등록</title>
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
             // 현재 시각을 가져와 yy.mm.dd.time 형식으로 입력창에 보여주는 함수
             function setCurrentTime() {
@@ -33,6 +34,46 @@
                 setCurrentTime();
             }
         </script>
+        <script>
+            function execDaumPostcode(){
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                    var addr = '';
+                    var extraAddr ='';
+
+                    if(data.userSelectedType === 'R'){
+                        addr=data.roadAddress;
+                    }
+                    else{
+                        addr = data.jibunAddress;
+                    }
+
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr+=(extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        if(extraAddr !== ''){
+                            extraAddr = '('+extraAddr+')';
+                        }
+
+                        document.getElementById("EXTRA_ADDRESS").value=extraAddr;
+                    }   
+
+                    else{
+                        document.getElementById("EXTRA_ADDRESS").value='';
+                    }
+
+                    document.getElementById('POSTCODE').value=data.zonecode;
+                    document.getElementById("ADDRESS").value=addr;
+                    document.getElementById("DETAIL_ADDRESS").focus();
+                }
+                }).open();
+            }
+            
+        </script>
     </head>
     <body>  
         <div>
@@ -48,9 +89,15 @@
                     <li>연락처<input type="tel" name="TEL_NUM" required></li>
                     <li>마취여부<br>
                         <input type="radio" name="anesthesia" value="마취"> 마취
-                        <input type="radio" name="anesthesia" value="마취 없음"> 마취 없음
+                        <input type="radio" name="anesthesia" value="마취 없음"> 마취 없음<br>
                     </li>
-                    <li>가게 위치</li>
+                    <li>가게 위치
+                        <input type="text" name="POSTCODE" id="POSTCODE" placeholder="우편번호">
+                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+                        <input type="text" name="ADDRESS" id="ADDRESS" placeholder="주소"><br>
+                        <input type="text" name="DETAIL_ADDRESS" id="DETAIL_ADDRESS" placeholder="상세주소"><br>
+                        <input type="text" name="EXTRA_ADDRESS" id="EXTRA_ADDRESS" placeholder="참고항목">
+                    </li>
                     <li>영업 시간<br>
                         가게 여는 시간 선택
                         <input type="time" name="OPENING_TIME" required><br>

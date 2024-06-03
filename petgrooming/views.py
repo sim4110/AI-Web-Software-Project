@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import StoreData, Qualification, CommentData, LikeData
+from .models import StoreData, Qualification, CommentData, LikeData, ScrapData
 # from .forms import StoreDataForm
 from django.contrib import messages
 from django.utils import timezone
@@ -17,11 +17,15 @@ def store_regist(request) :
         store_owner = request.POST.get('STORE_OWNER')
         tel_num = request.POST.get('TEL_NUM')
         anesthesia = request.POST.get('anesthesia')
-        location = request.POST.get('location')
         opening_time = request.POST.get('OPENING_TIME')
         closing_time = request.POST.get('CLOSING_TIME')
         qualifications = request.POST.getlist('qualifications')
         store_image = request.FILES.get('STORE_IMAGE')
+        
+        postcode = request.POST.get('POSTCODE')
+        address = request.POST.get('ADDRESS')
+        detail_address = request.POST.get('DETAIL_ADDRESS')
+        extra_address = request.POST.get('EXTRA_ADDRESS')
 
         writetime = timezone.now().strftime('%Y.%m.%d %H:%M')
 
@@ -33,12 +37,20 @@ def store_regist(request) :
             store_owner=store_owner,
             tel_num=tel_num,
             anesthesia=anesthesia,
-            location=location,
             opentime=opening_time,
             closetime=closing_time,
+            
+            postcode=postcode,
+            address=address,
+            detail_address=detail_address,
+            extra_address=extra_address,
             store_image=store_image
         )
-        store_data.save()
+
+        if request.session.get('user_id') != None:
+            store_data.save()
+        else :
+            return redirect('petgrooming:storeList')
 
         qualifications = request.POST.getlist('qualifications')
         for qualification in qualifications:
@@ -108,9 +120,13 @@ def store_edit(request,id):
             store.store_owner = request.POST.get('STORE_OWNER')
             store.tel_num = request.POST.get('TEL_NUM')
             store.anesthesia = request.POST.get('anesthesia')
-            store.location = request.POST.get('location')
             store.opentime = request.POST.get('OPENING_TIME')
             store.closetime = request.POST.get('CLOSING_TIME')
+            
+            store.postcode=request.POST.get('POSTCODE')
+            store.address=request.POST.get('ADDRESS')
+            store.detail_address=request.POST.get('DETAIL_ADDRESS')
+            store.extra_address=request.POST.get('EXTRA_ADDRESS')      
             store.store_image = request.FILES.get('STORE_IMAGE')
             
             if store.opentime is None:
@@ -132,10 +148,15 @@ def store_delete(request, id):
     if request.method == 'POST':
         try:
             store = StoreData.objects.get(pk=id)
+            # comment_list = CommentData.objects.filter(store=store)
+            # qualification_list = Qualification.objects.filter(store=store)
+
         except:
             store = None
         if store != None:
             if store.writer == request.session.get('user_id'):
+                # comment_list.delete()
+                # qualification_list.delete()
                 store.delete()
                 # messages.success(request, '홍보글 삭제를 완료했습니다.')
                 return redirect('petgrooming:storeList')
@@ -195,3 +216,28 @@ def comment_edit(request, store):
 def comment_list(request):
     store_list = StoreData.objects.all().order_by('-id')
     return render(request, 'store/storeList.html', {'stores': store_list})
+
+
+def store_scrap(request,id):
+# 스크랩 등록 - 스크랩한 유저 id ScrapData 테이블에 저장
+# 만약 스크랩 버튼 누른 유저가 이미 존재한다면, 메시지 출력(스크랩을 취소하시겠습니까?)
+# 아니면 스크랩에 유저 id 추가
+    try:
+        store = StoreData.objects.get(pk=id)
+    except:
+        store = None
+
+    if request.method == 'post':
+        user_id = request.session.get('user_id')
+        if user_id is not None:
+            if ScrapData.objects.filter(store=store, likeuser=user_id).exists():
+                #취소 여부 물어보기
+                scrap_list =ScrapData.objects.filter(store=store, user_id=user_id)
+                scrap_list.delete()
+                return 
+            else :
+                new_scrap_user = ScrapData(
+                    user_id =user_id
+                )
+                new_scrap_user.save()
+    return redirect('petgrooming:storeRead',id=store.id)

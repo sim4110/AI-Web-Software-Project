@@ -18,17 +18,18 @@
             background-color: #f2f2f2;
         }
     </style>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4720b949830d84db555a4563b4ad6ce4"></script>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4720b949830d84db555a4563b4ad6ce4&libraries=services"></script>
+    
 </head>
 <body>
     <h1>{{ store.store_name }}</h1>
     <table>
         <tr>
-            <th>Store Name</th>
+            <th>상호명</th>
             <td>{{ store.store_name }}</td>
         </tr>
         <tr>
-            <th>Owner</th>
+            <th>대표자</th>
             <td>{{ store.store_owner }}</td>
         </tr>
         <tr>
@@ -36,12 +37,8 @@
             <td>{{ store.tel_num }}</td>
         </tr>
         <tr>
-            <th>Anesthesia</th>
+            <th>마취여부</th>
             <td>{{ store.anesthesia }}</td>
-        </tr>
-        <tr>
-            <th>Location</th>
-            <td>{{ store.location }}</td>
         </tr>
         <tr>
             <th>Open Time</th>
@@ -52,7 +49,7 @@
             <td>{{ store.closetime }}</td>
         </tr>
         <tr>
-            <th>Store Image</th>
+            <th>가게 이미지</th>
             <td>
                 {% if store.store_image %}
                     <img src="{{ store.store_image.url }}" alt="Store Image">
@@ -62,7 +59,7 @@
             </td>
         </tr>
         <tr>
-            <th>Qualifications</th>
+            <th>수상 및 자격 목록</th>
             <td>
                 <ul>
                     {% for qualification in store.qualifications.all %}
@@ -72,18 +69,45 @@
             </td>
         </tr>
         <tr>
+            <th>주소</th>
+            <td>
+                <p>{{ store.address }} {{ store.detail_address }} {{ store.extra_address }}</p>
+            </td>
+        </tr>
+        <tr>
             <th>가게 위치</th>
             <td>
-                <div id="map" style="width:100px;height:100;"></div>
+                <div id="map" style="width:800px;height:400px;"></div>
                 <script>
-                    var container = document.getElementById('map');
-                    var options={
-                        center:new kakao.maps.LatLng(33.450701, 126.570667),
-                        level:3
-                    };
-                    var map = new kakao.maps.Map(container, opeions);
+                     document.addEventListener('DOMContentLoaded', function() {
+                        var mapContainer = document.getElementById('map');
+                        var mapOption = {
+                            center: new kakao.maps.LatLng(37.5665, 126.9780), // 기본 중심 좌표
+                            level: 3 // 확대 레벨
+                        };
+                        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                        var geocoder = new kakao.maps.services.Geocoder();
+                        var address = '{{ store.address }} {{ store.detail_address }} {{ store.extra_address }}';
+                        
+                        geocoder.addressSearch(address, function(result, status) {
+                            if (status === kakao.maps.services.Status.OK) {
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords
+                                });
+                                map.setCenter(coords);
+                            } else {
+                                alert("주소를 찾을 수 없습니다.");
+                            }
+                        });
+                    });
                 </script>
-            
+                <!-- //https://apis.map.kakao.com/web/sample/addr2coord/  - 주소로 장소 표현하기 -->
+                <!-- https://guiyomi.tistory.com/80 geocooder사용하기 -->
+                    
+                </script>
             </td>
 
         </tr>
@@ -107,9 +131,14 @@
         <button type="submit">Like</button>
     </form>
 
+    <form method="post" action="{% url 'petgrooming:storeScrap' store.id %}">
+        {% csrf_token %}
+        <button type="submit">Scrap</button>
+    </form>
 
 
-    <h2>Comments</h2>
+
+    <h2>댓글창</h2>
     <form method="post" action="{% url 'petgrooming:storeRead' store.id %}">
         {% csrf_token %}
         <input type="hidden" name="STATUS" value="CREATE">
